@@ -24,7 +24,7 @@ def saveDetails():
             epost = request.form["epost"]
             with sqlite3.connect("database.db") as con:  
                 cur = con.cursor()  
-                cur.execute("INSERT into RUSS (fnavn, enavn, telefon, epost) values (?,?,?,?)",(fnavn,enavn,telenr,epost))  
+                cur.execute("INSERT into RUSS (fornavn, etternavn, epost, telefon) values (?,?,?,?)",(fnavn,enavn,epost,telenr))  
                 con.commit()  
                 msg = "student successfully Added"  
         except:  
