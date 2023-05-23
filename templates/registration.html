@@ -1,0 +1,12 @@
+{%extends "layout.html"%}
+{%block content%}
+<h2>Påmelding</h2>   
+<form action = "/savedetails" method="post">  
+<table>  
+    <tr><td>Navn</td><td><input type="text" name="fnavn"></td></tr>  
+    <tr><td>Etternavn</td><td><input type="text" name="enavn"></td></tr>  
+    <tr><td>Telefonnr</td><td><input type="number" name="telenr"></td></tr>  
+    <tr><td><input type="submit" value="Submit"></td></tr>  
+</table>  
+</form>  
+{%endblock%}
