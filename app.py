@@ -18,19 +18,21 @@ def saveDetails():
     msg = "msg"
     if request.method == "POST":  
         try:  
-            fnavn = request.form["fnavn"]  
-            enavn = request.form["enavn"]  
-            telenr = request.form["telefon"]  
+            fnavn = request.form["fnavn"] 
+            enavn = request.form["enavn"]
+            telenr = request.form["telefon"]
+            epost = request.form["epost"]
             with sqlite3.connect("database.db") as con:  
                 cur = con.cursor()  
-                cur.execute("INSERT into RUSS (fnavn, enavn, telefon) values (?,?,?)",(fnavn,enavn,telenr))  
+                cur.execute("INSERT into RUSS (fnavn, enavn, telefon, epost) values (?,?,?,?)",(fnavn,enavn,telenr,epost))  
                 con.commit()  
                 msg = "student successfully Added"  
         except:  
             con.rollback()  
             msg = "We can not add the employee to the list"  
         finally:  
-            return render_template("success.html",msg = msg)  
             con.close()  
+            return render_template("success.html",msg = msg)  
+            
 
 app.run(host="0.0.0.0", port=5001)
