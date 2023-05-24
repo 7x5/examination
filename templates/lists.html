@@ -1,0 +1,42 @@
+{%extends "layout.html"%}
+{%block content%}
+<div>
+    <a href="/login/dashboard/registrer">Register betalende</a>
+    <a href="/login/dashboard/search">Søk</a>
+    <a href="/login/dashboard/lists">Lister</a>
+        <table>
+        <thead>
+          <tr>
+            <th>Alle</th>
+            <th>Betalt</th>
+            <th>Ikke betalt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                <ul>
+                    {% for person in alle %}
+                    <li>{{person[1]}} {{person[2]}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% for betalt_person in betalt %}
+                    <li>{{betalt_person[1]}} {{betalt_person[2]}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% for ikke_betalt_person in ikke_betalt %}
+                    <li>{{ikke_betalt_person[1]}} {{ikke_betalt_person[2]}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+{%endblock%}

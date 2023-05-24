@@ -1,0 +1,37 @@
+{%extends "layout.html"%}
+{%block content%}
+<div>
+    <a href="/login/dashboard/registrer">Register betalende</a>
+    <a href="/login/dashboard/search">Søk</a>
+    <a href="/login/dashboard/lists">Lister</a>
+    <form action="{{ url_for('registrerruss') }}" method="POST">
+        <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Betalt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for russ in russ %}
+          <tr>
+            <td>{{ russ[0] }}</td>
+            <td>{{ russ[1] }}</td>
+            <td>{{ russ[2] }}</td>
+            <td>{{ russ[3] }}</td>
+            <td>{{ russ[4] }}</td>
+            <td>
+                <input type="checkbox" name="betalt_status[]" value="{{ russ[0] }}" {% if russ[5] == 1 %} checked {% endif %}>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="submit">Lagre endringer</button>
+    </form>
+</div>
+{%endblock%}

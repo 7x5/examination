@@ -4,7 +4,7 @@ import sqlite3
 
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'your_secret_key'
 
 
@@ -43,7 +43,7 @@ def login():
 
         con = sqlite3.connect('database.db')
         c = con.cursor()
-        c.execute("SELECT * FROM admin WHERE brukernavn=?", (brukernavn,))
+        c.execute("SELECT * FROM admin WHERE brukernavn=?", (brukernavn))
         admin = c.fetchone()
         con.close()
 
@@ -65,7 +65,73 @@ def admin_dashboard():
     else:
         return redirect(url_for('login'))
 
-@app.route("/savedetails",methods = ["POST","GET"])  
+@app.route('/login/dashboard/registrer', methods=['GET', 'POST'])
+def registrerruss():
+    if 'logged_in' in session and session['logged_in']:
+        con = sqlite3.connect('database.db')
+        c = con.cursor()
+        c.execute("SELECT * FROM RUSS")
+        russ = c.fetchall()
+        con.close()
+
+        if request.method == 'POST':
+            betalt_status = request.form.getlist('betalt_status[]')
+            con = sqlite3.connect('database.db')
+            c = con.cursor()
+            for russ_id in betalt_status:
+                c.execute("UPDATE RUSS SET betalt = 1 WHERE ID = ?", (russ_id))
+            con.commit()
+            con.close()
+            return redirect(url_for('admin_dashboard'))
+
+        return render_template('registerbetalende.html', russ=russ)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/login/dashboard/search', methods=['GET','POST'])
+def search():
+    if 'logged_in' in session and session['logged_in']:
+        resultat = [0]
+
+        if request.method == 'POST':
+            etternavn = request.form['etternavn']
+            con = sqlite3.connect('database.db')
+            c = con.cursor()
+            c.execute("SELECT * FROM russ WHERE etternavn=?", (etternavn,))
+            resultat = c.fetchall()
+            con.close()
+
+        return render_template('search.html',resultat=resultat)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/login/dashboard/lists')
+def lists():
+    if 'logged_in' in session and session['logged_in']:
+        con = sqlite3.connect('database.db')
+        c = con.cursor()
+        c.execute("SELECT * FROM RUSS")
+        alle = c.fetchall()
+        con.close()
+
+        con = sqlite3.connect('database.db')
+        c = con.cursor()
+        c.execute("SELECT * FROM RUSS WHERE betalt = 1")
+        betalt = c.fetchall()
+        con.close()
+
+        con = sqlite3.connect('database.db')
+        c = con.cursor()
+        c.execute("SELECT * FROM RUSS WHERE betalt = 0")
+        ikke_betalt = c.fetchall()
+        con.close()
+
+        return render_template('lists.html', alle=alle, betalt=betalt, ikke_betalt=ikke_betalt)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/savedetails", methods = ["POST","GET"])  
 def saveDetails():  
     msg = "msg"
     if request.method == "POST":  

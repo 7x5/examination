@@ -1,0 +1,38 @@
+{%extends "layout.html"%}
+{%block content%}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div>
+    <a href="/login/dashboard/registrer">Register betalende</a>
+    <a href="/login/dashboard/search">Søk</a>
+    <a href="/login/dashboard/lists">Lister</a>
+    <form action="{{ url_for('search') }}" method="POST">
+        <label for="sok">Søk på påmeldte etter etternavn:</label>
+        <input type="text" name="etternavn" required>
+        <input type="submit" value="search"><br>
+    </form>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Betalt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for resultat in resultat %}
+          <tr>
+            <td>{{ resultat[0] }}</td>
+            <td>{{ resultat[1] }}</td>
+            <td>{{ resultat[2] }}</td>
+            <td>{{ resultat[3] }}</td>
+            <td>{{ resultat[4] }}</td>
+            <td>{{ resultat[5] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{%endblock%}
