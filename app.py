@@ -43,7 +43,7 @@ def login():
 
         con = sqlite3.connect('database.db')
         c = con.cursor()
-        c.execute("SELECT * FROM admin WHERE brukernavn=?", (brukernavn))
+        c.execute("SELECT * FROM admin WHERE brukernavn=?", (brukernavn,))
         admin = c.fetchone()
         con.close()
 
