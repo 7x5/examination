@@ -1,6 +1,10 @@
 {%extends "layout.html"%}
 {%block content%}
-<h2>Påmelding</h2>   
+<div class="table">
+<div>
+<h2>Påmelding</h2>
+</div>
+<div>
 <form action = "/savedetails" method="post">  
 <table>  
     <tr>
@@ -22,5 +26,7 @@
     <tr>
         <td><input type="submit" value="Submit"></td></tr>  
 </table>  
-</form>  
+</form>
+</div>
+</div>
 {%endblock%}

@@ -7,6 +7,10 @@ body {
     height: 100%;
 }
 
+a, a:visited {
+    color: black;
+}
+
 table, th, td {
     border: 1px solid;
 }
@@ -23,15 +27,36 @@ nav {
     opacity: 90%;
 }
 
+.dashboard-btn {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgb(207, 65, 217);
+    margin-top: -5px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.form2 {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
 container {
     height: fit-content;
-    margin: 100px;
+    margin: 100px auto; 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
     background-color: red;
     border-radius: 50px;
     opacity: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
     color: black;
-}
+    gap: 5px;
+  }

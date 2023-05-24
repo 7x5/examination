@@ -2,9 +2,9 @@
 {%block content%}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 <div>
-    <a href="/login/dashboard/registrer">Register betalende</a>
-    <a href="/login/dashboard/search">Søk</a>
-    <a href="/login/dashboard/lists">Lister</a>
+    <a class="dashboard-btn" href="/login/dashboard/registrer">Register betalende</a>
+    <a class="dashboard-btn" href="/login/dashboard/search">Søk</a>
+    <a class="dashboard-btn" href="/login/dashboard/lists">Lister</a>
     <form action="{{ url_for('search') }}" method="POST">
         <label for="sok">Søk på påmeldte etter etternavn:</label>
         <input type="text" name="etternavn" required>
